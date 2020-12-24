@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import hello_world, hi, FormatoJson
+from .views import hello_world, hi, FormatoJson, Argumentos
 
 
 urlpatterns = [
     path('hello-world/', hello_world),
     path('format-j-1/',hi),
     path('format-j-2/',FormatoJson),
+    path('format-j-3/<str:name>/<int:age>/',Argumentos),
     path('admin/', admin.site.urls),
 ]

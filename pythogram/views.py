@@ -31,3 +31,9 @@ def FormatoJson(request):
             'message': 'Integers succesfully ordered'
         }
     return HttpResponse(json.dumps(data, indent=4), content_type='application/json')
+
+def Argumentos(request,name,age):
+    if age < 12:
+        return HttpResponse("Im sorry {0} you're not allowed here :( ".format(name))
+    else:
+        return HttpResponse("Tu usuario es {0} y tienes {1} años".format(name,age))
