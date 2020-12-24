@@ -1,6 +1,23 @@
 """ Seccion de vistas para Django """
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
+
+#Utiliadades
+from datetime import datetime
 
 def hello_world(rquest):
     """ Vistas de prueba para Django """
-    return HttpResponse("Probando las vistas")
+    now = datetime.now().strftime('%b %dth, %Y - %H:%H hrs')
+    return HttpResponse("Probando las vistas {now}".format(now=str(now)))
+
+def hi(request):
+    """ Ejectuar consola ---> import pdb; pdb.set_trace()"""
+    numbers = request.GET['numbers'].split(',')
+    # numbers = [int(i) for i in request.GET['numbers']]
+    numbers = [int(i) for i in numbers]
+    sorted_int = sorted(numbers)
+    dic = {}
+    for i in numbers:
+        dic[str(i)] = [i]
+    response = JsonResponse(dic, safe=False)
+    return HttpResponse("Esto son los numeros {0}".format(response.content))
+
