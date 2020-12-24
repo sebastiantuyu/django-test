@@ -15,3 +15,4 @@ def FormatoJson(request):
             'message': 'Integers succesfully ordered'
         }
     return HttpResponse(json.dumps(data, indent=4), content_type='application/json')
+

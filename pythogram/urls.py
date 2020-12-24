@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import FormatoJson
+from posts.views import post
 
 
 urlpatterns = [
     path('format-j-2/',FormatoJson),
+    path('posts/',post),
     path('admin/', admin.site.urls),
 ]
