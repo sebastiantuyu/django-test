@@ -3,6 +3,7 @@ from django.http import HttpResponse,JsonResponse
 
 #Utiliadades
 from datetime import datetime
+import json
 
 def hello_world(rquest):
     """ Vistas de prueba para Django """
@@ -21,3 +22,12 @@ def hi(request):
     response = JsonResponse(dic, safe=False)
     return HttpResponse("Esto son los numeros {0}".format(response.content))
 
+def FormatoJson(request):
+    numbers = request.GET['numbers'].split(',')
+    numbers = sorted(numbers)
+    data ={
+            'status':'ok',
+            'numbers': numbers,
+            'message': 'Integers succesfully ordered'
+        }
+    return HttpResponse(json.dumps(data, indent=4), content_type='application/json')

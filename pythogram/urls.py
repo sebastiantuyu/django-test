@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import hello_world, hi
+from .views import hello_world, hi, FormatoJson
 
 
 urlpatterns = [
     path('hello-world/', hello_world),
-    path('hi/',hi),
+    path('format-j-1/',hi),
+    path('format-j-2/',FormatoJson),
     path('admin/', admin.site.urls),
 ]
