@@ -1,7 +1,8 @@
 """ Seccion de vistas para Django """
 from django.http import HttpResponse,JsonResponse
+from django.shortcuts import render
 
-#Utiliadades
+# Utiliadades
 from datetime import datetime
 import json
 
@@ -15,4 +16,5 @@ def FormatoJson(request):
             'message': 'Integers succesfully ordered'
         }
     return HttpResponse(json.dumps(data, indent=4), content_type='application/json')
+
 

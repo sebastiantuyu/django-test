@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <style>
+        body,html{
+            font-family:Sans-Serif;
+            background-color: #7B7B7B;
+        }
+        .shadow{
+            padding-left:2%;
+            padding-top:1%;
+            margin-left:25%;
+            margin-right:25%;
+            width:50%;
+            background-color:white;
+
+            -webkit-box-shadow: 10px 10px 17px -1px rgba(0,0,0,0.4);
+            -moz-box-shadow: 10px 10px 17px -1px rgba(0,0,0,0.4);
+            box-shadow: 10px 10px 17px -1px rgba(0,0,0,0.4);
+        }
+        .post{
+            width:90%;
+            margin-left:5%;
+            height:auto;
+        }
+
+    </style>
+</head>
+<body>
+
+{% for i in info %}
+<div class="shadow">
+    <div>
+        <h1> <img src="{{i.user.ppic}}" alt="" width="20px" height="20px" style="border-rounded:50%;">
+         {{i.user.name}} </h1>
+    </div>
+    <br>
+    <h2>{{i.title}}</h2>
+    <div>
+        <span><i>{{i.timestamp}}</i></span>
+        <br>
+    <img src="{{i.postImage}}" alt="" class="post" >
+    </div>
+</div>
+<br><br><br>
+{% endfor %}
+
+
+</body>
+</html>
