@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from .views import FormatoJson
 from posts.views import post
-
+#from users.views import user_view
 
 urlpatterns = [
     path('format-j-2/',FormatoJson),

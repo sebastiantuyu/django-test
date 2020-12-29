@@ -42,4 +42,4 @@ informacion = [
 
 def post(request):
     """ POST EXISTENTES """
-    return render(request, 'feed.html', {'info': informacion})
+    return render(request, 'posts/feed.html', {'info': informacion})
