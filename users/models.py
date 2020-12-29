@@ -14,7 +14,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     website = models.URLField(max_length=200,blank=True)
     bio = models.TextField(null=True)
-    phone_number = models.CharField(max_length=9,blank=True)
+    phone_number = models.CharField(max_length=10,blank=True)
 
     picture = models.ImageField(
         upload_to='users/pictures',
@@ -27,4 +27,4 @@ class Profile(models.Model):
 
     def __str__(self):
         """ Regresar el nombre de usuario formateado """
-        return self.user
+        return self.user.username
