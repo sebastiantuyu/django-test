@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from .views import FormatoJson
 from posts.views import post
-#from users.views import user_view
+from users.views import user_view,log_out
 
 urlpatterns = [
     path('format-j-2/',FormatoJson),
-    path('posts/',post),
+    path('posts/',post,name='feed'),
     path('admin/', admin.site.urls),
+    path('login/',user_view, name='login'),
+    path('logout/',log_out,name='logout')
 ]
