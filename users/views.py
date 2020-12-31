@@ -35,4 +35,14 @@ def log_out(request):
 
 def sign_up(request):
     """ AGREGAR SIGN UP PARA USUARIOS """
+
+    if request.method == "POST":
+        username = request.POST['username']
+        passw = request.POST['password']
+        passw_conf = request.POST['password-confirmation']
+        email = request.POST['email']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        if passw != passw_conf:
+            return render(request, 'users/sign_up.html',{'info':'Las contraseñas deben ser iguales'})
     return render(request, 'users/sign_up.html')
