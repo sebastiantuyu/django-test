@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate,login, logout
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -23,10 +24,15 @@ def user_view(request):
     return render(request, "users/login.html")
 
 
-
+@login_required
 def log_out(request):
     """
     Hacer logout de la sesion de usuairo
     """
     logout(request)
     return redirect('login')
+
+
+def sign_up(request):
+    """ AGREGAR SIGN UP PARA USUARIOS """
+    return render(request, 'users/sign_up.html')
