@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login, logout
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db.utils import IntegrityError
+from .models import Profile
 # Create your views here.
 
 
@@ -45,4 +48,20 @@ def sign_up(request):
         last_name = request.POST['last_name']
         if passw != passw_conf:
             return render(request, 'users/sign_up.html',{'info':'Las contraseñas deben ser iguales'})
+        else:
+            """
+                Registrar usuario, y tambien registrar perfil
+            """
+            try:
+                new_user = User.objects.create_user(username=username, password=passw)
+            except IntegrityError:
+                return render(request, 'users/sign_up.html', {'user_fail': 'Este usuario ya existe'})
+            new_user.first_name = first_name
+            new_user.last_name = last_name
+            new_user.email = email
+            new_user.save()
+            new_pf = Profile(user=new_user)
+            new_pf.save()
+
+            return redirect('login')
     return render(request, 'users/sign_up.html')

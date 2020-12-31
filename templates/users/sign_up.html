@@ -15,8 +15,12 @@
 <form action="{% url 'sign_up' %}" method="POST">
     {% csrf_token %}
 
+
+    {% if user_fail %}
+    <p class="alert alert-danger"> {{user_fail}} </p>
+    {% endif %}
     <div class="form-group">
-    <input type="text" class="form-control" placeholder="Username" name="username" required="true">
+    <input type="text" class="form-control {%if user_fail%} border-danger alert-danger {% endif %}" placeholder="Username" name="username" required="true">
     </div>
 
     <div class="form-group">
