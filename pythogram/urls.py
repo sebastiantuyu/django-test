@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from .views import FormatoJson
 from posts.views import post
-from users.views import user_view,log_out,sign_up
+from users.views import user_view,log_out,sign_up,update_profile
 
 urlpatterns = [
     path('format-j-2/',FormatoJson),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('login/',user_view, name='login'),
     path('logout/',log_out,name='logout'),
     path('signup/',sign_up,name='sign_up'),
+    path('users/me/profile',update_profile,name='update'),
 ]

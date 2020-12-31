@@ -65,3 +65,12 @@ def sign_up(request):
 
             return redirect('login')
     return render(request, 'users/sign_up.html')
+
+
+
+
+def update_profile(request):
+    """
+        Actualizar perfil, utilizando un MIDDLEWARE
+    """
+    return render(request,'users/update_profile.html')
