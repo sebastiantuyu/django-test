@@ -1,4 +1,4 @@
-"""  Aqui van los MIDDLEWARES """
+"""  Aqui van todos los comandos del MiddleWare """
 from django.shortcuts import redirect,reverse
 
 class ProfileCompletionMiddleware:
@@ -17,6 +17,7 @@ class ProfileCompletionMiddleware:
         """
 
         if not request.user.is_anonymous:
+            if not request.user.is_staff:
                 profile = request.user.profile
                 if not profile.picture or not profile.bio:
                     if request.path not in [reverse('update'),reverse('logout')]:

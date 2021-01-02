@@ -5,7 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from .models import Profile
+from .forms import ProfileForm
 # Create your views here.
+
+
 
 
 def user_view(request):
@@ -34,7 +37,6 @@ def log_out(request):
     """
     logout(request)
     return redirect('login')
-
 
 def sign_up(request):
     """ AGREGAR SIGN UP PARA USUARIOS """
@@ -73,4 +75,24 @@ def update_profile(request):
     """
         Actualizar perfil, utilizando un MIDDLEWARE
     """
-    return render(request,'users/update_profile.html')
+    profile = request.user.profile
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.cleaned_data
+            profile.bio = data['bio']
+            profile.website = data['website']
+            profile.phone_number = data['phone']
+            profile.picture = data['picture']
+            profile.save()
+            return redirect('update_profile')
+    else:
+        form = ProfileForm() 
+    
+    return render(request,'users/update_profile.html',context={'profile':profile,'form':form})
+
+
+
+
+
