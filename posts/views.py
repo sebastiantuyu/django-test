@@ -45,7 +45,8 @@ informacion = [
 @login_required
 def post(request):
     """ POST EXISTENTES """
-    return render(request, 'posts/feed.html', {'info': informacion})
+    posts = Post.objects.all().order_by('-created')
+    return render(request, 'posts/feed.html', {'info':posts})
 
 
 @login_required
