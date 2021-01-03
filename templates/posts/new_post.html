@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+
+{% block head_content %}
+<title> New post | {{ request.user.username }}</title>
+{% endblock %}
+
+{% block container %}
+
+<div class="row" style="position:relative;margin-top:10%;">
+    <div class="offset-2"></div>
+    <div class="col-8 shadow-lg rounded">
+
+        <p class="mt-5"> <h3 class="d-flex justify-content-center ">Publicar un nuevo post </h3> </p>
+
+        <form action="{% url 'new_post' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+            <input type="hidden" value="{{ user.pk }}" name="user">
+            <input type="hidden" value="{{ profile.pk }}" name="profile">
+            <div class="form-group">
+                <label> Pic a title! </label>
+                <input type="text"
+                       class="form-control {%if form.title.errors %}is-invalid{%endif%}"
+                       name="title"
+                       value="{% if form.title.errors %}{{ form.title.value }}{% else%} {{profile.post.title}} {% endif %}"
+                       placeholder="Title">
+            </div>
+
+            {# MOSTRAR ERRORES DEL TITULO #}
+
+            {% for e in form.title.errors %}
+          <div class="alert alert-warning">
+                <b> Titulo: </b> {{e}}
+            </div>
+            {% endfor %}
+
+
+
+            <div class="form-group">
+                <label> Chose a photo! </label>
+                <input type="file"
+                       class="form-control {% if form.photo.errors %}is-invalid{% endif %}"
+                       name="photo"
+                       value="{% if form.photo.errors %} {{form.photo.value}}{% else %} {{profile.post.photo.url}} {% endif %}"
+                       placeholder="Photo">
+            </div>
+
+            {# MOSTRAR ERRORES DE LA IMAGEN #}
+
+            {% for e in form.photo.errors %}
+            <div class="alert alert-warning">
+                <b> Foto: </b> {{e}}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary btn-block mb-3"> Share a new post!</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

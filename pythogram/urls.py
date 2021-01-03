@@ -18,16 +18,17 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import FormatoJson
-from posts.views import post
+from posts.views import post,create_post
 from users.views import user_view,log_out,sign_up,update_profile
 
 urlpatterns = [
     path('format-j-2/',FormatoJson),
-    path('posts/',post,name='feed'),
+    path('',post,name='feed'),
     path('admin/', admin.site.urls),
     path('login/',user_view, name='login'),
     path('logout/',log_out,name='logout'),
     path('signup/',sign_up,name='sign_up'),
+    path('newpost/',create_post,name="new_post"),
     path('users/me/profile',update_profile,name='update'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

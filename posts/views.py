@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-
+from .forms import PostForm
+from .models import Post
 # Create your views here.
 
 informacion = [
@@ -45,3 +46,21 @@ informacion = [
 def post(request):
     """ POST EXISTENTES """
     return render(request, 'posts/feed.html', {'info': informacion})
+
+
+@login_required
+def create_post(request):
+    """
+        CREACION DE UN NUEVO POST USANDO EL MODEL FORM
+    """
+    post = Post()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            print("ok")
+            return redirect('feed')
+    else:
+        form = PostForm()
+
+    return render(request,'posts/new_post.html',{'form':form, 'user':request.user})
