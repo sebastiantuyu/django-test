@@ -6,19 +6,40 @@
 {% endblock %}
 
 {% load static %}
+
+
 {% block container%}
 	
-		
-			<div class="container "> 
+			
+			<div class="container  d-flex flex-row"> 
 			{% if profile.picture %}
-	
+		
+			<div class="col-4"> 
 
-			<img class="rounded-circle" src="{{ profile.picture.url }}" width="50">
+			<img class="rounded-circle justify-content-center d-flex" src="{{ profile.picture.url }}" width="50">
+			
+			</div>	
+		
+			<div class="col-8">
+			
+			<p>  {{request.user.username}} | {{ request.user.first_name }}	</p>
+			</div>
 
 			{% else %}
 				
+		
+			<div class="col-4"> 
 
-			<img class="rounded-circle" src="{% static 'img/user-default.png' %}" width="50">
+			<img class="rounded-circle justify-content-center d-flex" src="{% static 'img/user-default.png' %}" width="50">
+			
+			</div>	
+		
+			<div class="col-8">
+			
+				<p class="d-flex align-items-center">  {{request.user.username}} | {{ request.user.first_name }}	</p>
+			
+			</div>
+	
 
 			{% endif %}
 	
@@ -27,11 +48,12 @@
 		</div>
 
 
-		<form action="{% url 'update' %}"  class="form-group mt-5"> 
+		<form action="{% url 'update' %}"  method="POST" class="form-group mt-5" enctype="multipart/form-data"> 
+			{% csrf_token %}
 
-
+		
 		<div class="form-group">
-			<input class="form-control" type="image" name="picture"  placeholder="{{ profile.picture }}"  value="{{ profile.picture }}">
+			<input class="form-control" type="file" name="picture"  placeholder="{{ profile.picture }}"  value="{{ profile.picture }}">
 		</div>
 		
 		
@@ -50,6 +72,9 @@
 				<input class="form-control" type="text" name="bio" value="{{ profile.bio }}">
 		</div>	
 
+		<div class="form-group d-flex">
+			<button type="submit" class="btn btn-primary d-flex justify-content-center"> Actualizar perfil </button>
+		</div>
 
 	</form>
 
