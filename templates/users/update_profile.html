@@ -49,14 +49,30 @@
 		<div class="form-group">
 			<input class="form-control" type="file" name="picture"  placeholder="{{ profile.picture.url }}"  value="{% if profile.picture %} {{ profile.picture.url }} {% endif %}">
 		</div>
+
+			{# ERRORES EN EL UPDATE DE LA FOTO DE PERFIL #}
+
 			{% for error in form.picture.errors %}
 			<div class="alert alert-danger">
 				<b>Picture: </b> {{ error }}
 			</div>
 			{% endfor %}
+
+
 		<div class="form-group">
 			<input class="form-control" type="text" name="website" value="{{ profile.website}}">
 		</div>
+
+
+			{# ERRORES EN EL UPDATE DEL WEBSITE #}
+
+			{% for error in form.website.errors %}
+			<div class="alert alert-danger">
+				<b>Website: </b> {{ error }}
+			</div>
+			{% endfor %}
+
+
 		<div class="form-group">
 				<input class="form-control" type="text" name="phone_number" value="{{ profile.phone_number }}">
 		</div>
