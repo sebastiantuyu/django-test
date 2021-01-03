@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import FormatoJson
 from posts.views import post
 from users.views import user_view,log_out,sign_up,update_profile
@@ -27,4 +29,5 @@ urlpatterns = [
     path('logout/',log_out,name='logout'),
     path('signup/',sign_up,name='sign_up'),
     path('users/me/profile',update_profile,name='update'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

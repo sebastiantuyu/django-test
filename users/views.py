@@ -83,10 +83,13 @@ def update_profile(request):
             data = form.cleaned_data
             profile.bio = data['bio']
             profile.website = data['website']
-            profile.phone_number = data['phone']
+            profile.phone_number = data['phone_number']
             profile.picture = data['picture']
             profile.save()
-            return redirect('update_profile')
+            print('*'*20)
+            print("ok")
+            print('*'*20)
+            return redirect('update')
     else:
         form = ProfileForm() 
     
