@@ -34,10 +34,6 @@
 			{% csrf_token %}
 
 			<!--  CONTENENDOR DE FOTO DEL USUARIO -->
-             {% if form.errors %}
-                    <div class="alert alert-warning">{{ form.errors }}</div>
-                {% endif %}
-
                 <div class="media">
                     {% if profile.picture %}
                         <img src="{{ profile.picture.url }}" class="rounded-circle mb-3" height="50" />
@@ -49,10 +45,15 @@
 				</div>
 			<!--  FIN DEL CONTENEDOR -->
 
-
+		{# FOTO DE PERFIL #}
 		<div class="form-group">
 			<input class="form-control" type="file" name="picture"  placeholder="{{ profile.picture.url }}"  value="{% if profile.picture %} {{ profile.picture.url }} {% endif %}">
 		</div>
+			{% for error in form.picture.errors %}
+			<div class="alert alert-danger">
+				<b>Picture: </b> {{ error }}
+			</div>
+			{% endfor %}
 		<div class="form-group">
 			<input class="form-control" type="text" name="website" value="{{ profile.website}}">
 		</div>
