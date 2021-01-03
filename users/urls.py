@@ -16,8 +16,8 @@ urlpatterns = [
 
     # VISTA BASADA EN CLASE DEL PERFIL DE USUARIO
     path(
-        route='/users/<str:username>/',
-        view=TemplateView.as_view(template_name='users/detail'),
+        route='<str:username>/',
+        view=TemplateView.as_view(template_name='users/detail.html'),
         name="detail"
     ),
 ]
