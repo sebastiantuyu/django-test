@@ -8,42 +8,10 @@
 {% block container %}
 
 
-
-{% if info %}
-   <p class="alert alert-danger"> {{info}} </p>
-{% endif %}
 <form action="{% url 'sign_up' %}" method="POST">
     {% csrf_token %}
 
-
-    {% if user_fail %}
-    <p class="alert alert-danger"> {{user_fail}} </p>
-    {% endif %}
-    <div class="form-group">
-    <input type="text" class="form-control {%if user_fail%} border-danger alert-danger {% endif %}" placeholder="Username" name="username" required="true">
-    </div>
-
-    <div class="form-group">
-    <input type="password" class="form-control  {%if info%} border-danger alert-danger {% endif %}" placeholder="Password" name="password" required="true">
-    </div>
-
-        <div class="form-group">
-    <input type="password" class="form-control {%if info%} border-danger alert-danger {% endif %}" placeholder="Password confirmation" name="password-confirmation" required="true">
-    </div>
-
-
-    <div class="form-group">
-    <input type="text" class="form-control" placeholder="Email" name="email" required="true">
-    </div>
-
-       <div class="form-group">
-    <input type="text" class="form-control" placeholder="First name" name="first_name" required="true">
-    </div>
-
-    <div class="form-group">
-    <input type="text" class="form-control" placeholder="Last name" name="last_name" required="true">
-    </div>
-
+    {{ form.as_p }}
 
     <button type="submit" class="btn btn-primary btn-block mt-5"> Sign Up! </button>
 </form>
