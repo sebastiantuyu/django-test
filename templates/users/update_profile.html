@@ -47,7 +47,7 @@
 
 		{# FOTO DE PERFIL #}
 		<div class="form-group">
-			<input class="form-control" type="file" name="picture"  placeholder="{{ profile.picture.url }}"  value="{% if profile.picture %} {{ profile.picture.url }} {% endif %}">
+			<input class="form-control" type="file" name="picture"  placeholder="{{ profile.picture }}"  value="{% if profile.picture %} {{ profile.picture.url }} {% endif %}">
 		</div>
 
 			{# ERRORES EN EL UPDATE DE LA FOTO DE PERFIL #}
@@ -60,7 +60,7 @@
 
 
 		<div class="form-group">
-			<input class="form-control" type="text" name="website" value="{{ profile.website}}">
+			<input class="form-control" type="text" name="website" value="{% if form.website.errors %}{{ form.website.value }}{% else %}{{ profile.website}} {% endif%}">
 		</div>
 
 
@@ -74,11 +74,28 @@
 
 
 		<div class="form-group">
-				<input class="form-control" type="text" name="phone_number" value="{{ profile.phone_number }}">
+				<input class="form-control" type="text" name="phone_number" value="{% if form.phone_number.errors %}{{ form.phone_number.value }}{% else %}{{profile.phone_number}} {% endif%}">
 		</div>
+
+			{# ERRORES EN EL UPDATE DEL NUMERO DE TELEFONO #}
+			{% for error in form.phone_number.errors %}
+			<div class="alert alert-danger">
+				<b>Cellphone: </b> {{ error }}
+			</div>
+			{% endfor %}
+
+
 		<div class="form-group">
-				<input class="form-control" type="text" name="bio" value="{{ profile.bio }}">
+				<input class="form-control" type="text" name="bio" value="{% if form.bio.errors %}{{ form.bio.value }}{% else %}{{profile.bio}} {% endif%}">
 		</div>	
+
+			{# ERRORES EN EL UPDATE DE LA BIOGRAFIA #}
+
+			{% for error in form.bio.errors %}
+			<div class="alert alert-danger">
+				<b>Biography: </b> {{ error }}
+			</div>
+			{% endfor %}
 
 		<div class="form-group d-flex">
 			<button type="submit" class="btn btn-primary d-flex justify-content-center"> Actualizar perfil </button>
