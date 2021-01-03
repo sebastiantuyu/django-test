@@ -14,21 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import FormatoJson
-from posts.views import post,create_post
-from users.views import user_view,log_out,sign_up,update_profile
+
 
 urlpatterns = [
-    path('format-j-2/',FormatoJson),
-    path('',post,name='feed'),
+
     path('admin/', admin.site.urls),
-    path('login/',user_view, name='login'),
-    path('logout/',log_out,name='logout'),
-    path('signup/',sign_up,name='sign_up'),
-    path('newpost/',create_post,name="new_post"),
-    path('users/me/profile',update_profile,name='update'),
+
+    # INCLUIR URLS DE POST
+    path('',include(('posts.urls','posts'),namespace='posts')),
+
+    #INCLUIR URLS DE USERS
+    path('users/',include(('users.urls','users'), namespace='users')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

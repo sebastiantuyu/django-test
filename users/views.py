@@ -25,7 +25,7 @@ def user_view(request):
         user = authenticate(request,username=user_name,password=passw)
         if user is not None:
             login(request,user)
-            return redirect('feed')
+            return redirect('posts:feed')
         else:
             return render(request, "users/login.html",{'error':'Usuario o contraseña invalidos'})
     return render(request, "users/login.html")
@@ -37,7 +37,7 @@ def log_out(request):
     Hacer logout de la sesion de usuairo
     """
     logout(request)
-    return redirect('login')
+    return redirect('users:login')
 
 def sign_up(request):
     """ AGREGAR SIGN UP PARA USUARIOS """
@@ -45,7 +45,7 @@ def sign_up(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('users:login')
     else:
         form = SignupForm()
     return render(request, 'users/sign_up.html', {'form':form})
@@ -71,7 +71,7 @@ def update_profile(request):
             print('*'*20)
             print("ok")
             print('*'*20)
-            return redirect('update')
+            return redirect('users:update')
     else:
         form = ProfileForm() 
     
