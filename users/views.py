@@ -100,6 +100,12 @@ class SignupFormView(FormView):
     success_url = reverse_lazy('users:login')
     form_class = SignupForm
 
+    def form_valid(self, form):
+        """
+        Sobre escribir la funcion para redirigir a donde queramo
+        """
+        form.save()
+        return super().form_valid(form)
 
 
 
