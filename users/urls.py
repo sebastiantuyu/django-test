@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from users import views
-from .views import user_view,log_out,sign_up,update_profile,UserDetailView,SignupFormView
+from .views import user_view,log_out,sign_up,update_profile,UserDetailView,SignupFormView,UpdateProfileView
 
 
 
@@ -11,8 +11,10 @@ urlpatterns = [
     # MANAGEMENT DE USUARIOS
     path('login/', user_view, name='login'),
     path('logout/', log_out, name='logout'),
-    path('me/profile', update_profile, name='update'),
 
+    # VISTA BASADA EN CLASES PARA HACER UPDATE
+
+    path('me/profile', UpdateProfileView.as_view(), name='update'),
 
     # VISTA BASADA EN CLASE SIGN UP
     path('signup/', SignupFormView.as_view(), name='sign_up'),

@@ -4,12 +4,13 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView,FormView
+from django.views.generic import DetailView,FormView,UpdateView
 # USAR LOGIN REQUIRED DESDE VISTA BASADA EN CLASE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import ProfileForm, SignupForm
 from posts.models import Post
+from .models import Profile
 # Create your views here.
 
 class UserDetailView(LoginRequiredMixin,DetailView):
@@ -103,9 +104,19 @@ class SignupFormView(FormView):
     def form_valid(self, form):
         """
         Sobre escribir la funcion para redirigir a donde queramo
-        """
+         """
         form.save()
         return super().form_valid(form)
 
 
+class UpdateProfileView(LoginRequiredMixin,UpdateView):
+    template_name = 'users/update_profile.html'
+    model = Profile
+    fields = ['website','bio','phone_number','picture']
 
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    def get_success_url(self):
+        username = self.object.user.username
+        return reverse('users:detail',kwargs={'username':username})
