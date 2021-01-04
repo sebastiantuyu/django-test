@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate,login, logout
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.urls import reverse
-from django.views.generic import DetailView,ListView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView,FormView
 # USAR LOGIN REQUIRED DESDE VISTA BASADA EN CLASE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -94,6 +94,11 @@ def update_profile(request):
     
     return render(request,'users/update_profile.html',context={'profile':profile,'form':form})
 
+
+class SignupFormView(FormView):
+    template_name = 'users/sign_up.html'
+    success_url = reverse_lazy('users:login')
+    form_class = SignupForm
 
 
 
