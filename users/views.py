@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView,FormView,UpdateView
+from django.contrib.auth.views import LoginView,LogoutView
 # USAR LOGIN REQUIRED DESDE VISTA BASADA EN CLASE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -120,3 +121,11 @@ class UpdateProfileView(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         username = self.object.user.username
         return reverse('users:detail',kwargs={'username':username})
+
+class LoginViewClass(LoginView):
+    """ LOGIN """
+    template_name = 'users/login.html'
+
+class LogOutView(LoginRequiredMixin,LogoutView):
+    """ HACER LOGOUT """
+    pass
