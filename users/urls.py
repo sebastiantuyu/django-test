@@ -18,6 +18,6 @@ urlpatterns = [
     path(
         route='<str:username>/',
         view= UserDetailView.as_view(),
-        name="detail"
+        name='detail'
     ),
 ]

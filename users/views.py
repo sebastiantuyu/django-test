@@ -3,11 +3,12 @@ from django.contrib.auth import authenticate,login, logout
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.db.utils import IntegrityError
-from django.views.generic import DetailView,TemplateView
+from django.views.generic import DetailView
 from .models import Profile
 from .forms import ProfileForm, SignupForm
-
+from posts.models import Post
 # Create your views here.
 
 class UserDetailView(DetailView):
@@ -18,6 +19,14 @@ class UserDetailView(DetailView):
     queryset = User.objects.all()
     context_object_name = 'user'
 
+
+    def get_context_data(self, **kwargs):
+        """ Agregar los datos de contexto (extras) del usuario """
+
+        context = super().get_context_data(**kwargs)
+        user= self.get_object()
+        context['posts'] = Post.objects.filter(user=user).order_by('-created')
+        return context
 
 def user_view(request):
     """
@@ -75,10 +84,10 @@ def update_profile(request):
             profile.phone_number = data['phone_number']
             profile.picture = data['picture']
             profile.save()
-            print('*'*20)
-            print("ok")
-            print('*'*20)
-            return redirect('users:update')
+
+            # Necesitamos escribir correctamente la URL usando reverse
+            url = reverse('users:detail',kwargs={'username':request.user.username})
+            return redirect(url)
     else:
         form = ProfileForm() 
     
