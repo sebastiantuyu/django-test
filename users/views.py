@@ -4,12 +4,19 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
+from django.views.generic import DetailView,TemplateView
 from .models import Profile
 from .forms import ProfileForm, SignupForm
 
 # Create your views here.
 
+class UserDetailView(DetailView):
 
+    template_name = 'users/detail.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    queryset = User.objects.all()
+    context_object_name = 'user'
 
 
 def user_view(request):

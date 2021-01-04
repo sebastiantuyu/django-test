@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from users import views
-from .views import user_view,log_out,sign_up,update_profile
+from .views import user_view,log_out,sign_up,update_profile,UserDetailView
 
 
 
@@ -17,7 +17,7 @@ urlpatterns = [
     # VISTA BASADA EN CLASE DEL PERFIL DE USUARIO
     path(
         route='<str:username>/',
-        view=TemplateView.as_view(template_name='users/detail.html'),
+        view= UserDetailView.as_view(),
         name="detail"
     ),
 ]
