@@ -5,41 +5,10 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .forms import PostForm
 from .models import Post
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 # Create your views here.
 
-informacion = [
-    {
-        'title': 'Mi primer post in Pytagram',
-        'user': {
-            'name': 'alextpineiro',
-            'ppic': 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png',
-        },
-        'timestamp': datetime.now().strftime("%b %d"),
-        'postImage': 'https://librosostenibilidad.files.wordpress.com/2017/03/paisaje-cultura-sostenibilidad-2.jpg',
-    },
-
-    {
-        'title': 'Este es el tercer post',
-        'user': {
-            'name': 'emituyupp',
-            'ppic': 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png',
-        },
-        'timestamp': datetime.now().strftime("%b %d"),
-        'postImage': 'https://librosostenibilidad.files.wordpress.com/2017/03/paisaje-cultura-sostenibilidad-2.jpg',
-    },
-
-    {
-        'title': 'jugando con Pytagram',
-        'user': {
-            'name': 'mauricioBlodBoster',
-            'ppic': 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png',
-        },
-        'timestamp': datetime.now().strftime("%b %d"),
-        'postImage': 'https://librosostenibilidad.files.wordpress.com/2017/03/paisaje-cultura-sostenibilidad-2.jpg',
-    },
-
-
-]
 
 
 @login_required

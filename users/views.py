@@ -4,14 +4,15 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.db.utils import IntegrityError
-from django.views.generic import DetailView
-from .models import Profile
+from django.views.generic import DetailView,ListView
+# USAR LOGIN REQUIRED DESDE VISTA BASADA EN CLASE
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .forms import ProfileForm, SignupForm
 from posts.models import Post
 # Create your views here.
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin,DetailView):
 
     template_name = 'users/detail.html'
     slug_field = 'username'

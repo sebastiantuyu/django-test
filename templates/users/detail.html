@@ -50,6 +50,17 @@
         </div>
     </div>
 
-    {{ posts }}
+ <div class="d-flex flex-row mb-4">
+<div class="offset-3"></div>
+ <div class="col-6 mb-4">
+        {% for p in posts %}
+        <div class="container bg-light shadow-lg mt-5 rounded">
+        <p><h4>{{ p.title }}</h4></p>
+        <img src="{{ p.photo.url }}" alt="" class="w-75 d-flex align-items-center">
+        </div>
+     {% endfor %}
+ </div>
+ </div>
+
 
 {% endblock %}
