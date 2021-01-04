@@ -9,7 +9,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 # Create your views here.
 
-
+class PostFeed(LoginRequiredMixin, ListView):
+    """
+        Clase para imprimir todos los post existentes usando ListView
+    """
+    template_name = 'posts/feed.html'
+    model = Post
+    ordering = ('-created',)
+    paginate_by = 2
+    context_object_name = 'info'
 
 @login_required
 def post(request):
