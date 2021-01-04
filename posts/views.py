@@ -4,9 +4,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .forms import PostForm
-from .models import Post
+from .models import Post,User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 # Create your views here.
 
 class PostFeed(LoginRequiredMixin, ListView):
@@ -18,6 +18,24 @@ class PostFeed(LoginRequiredMixin, ListView):
     ordering = ('-created',)
     paginate_by = 2
     context_object_name = 'info'
+
+class PostDetails(LoginRequiredMixin, DetailView):
+    template_name = 'posts/detail_post.html'
+    slug_field = 'pk'
+    slug_url_kwarg = 'pk'
+    queryset = Post.objects.all()
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        """
+            Obtener los datos en especifico del post
+        """
+        context = super().get_context_data(**kwargs)
+        pk = self.get_object()
+        print(pk.pk)
+        context['posts'] = Post.objects.get(pk=pk.pk)
+        return context
+
 
 @login_required
 def post(request):

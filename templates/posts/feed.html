@@ -19,12 +19,14 @@
                 </div>
                 </div>
             </div>
-
+            <a href="{% url 'posts:detail' post.id %}">
             <img class="img-fluid mt-3 border rounded" src="{{ post.photo.url }}" alt="{{ post.title }}">
-            <h6 class="ml-1 mt-1">{{ post.created }}</h6>
+            </a>
+                <h6 class="ml-1 mt-1">{{ post.created }}</h6>
         </div>
         {% endfor %}
     </div>
+
+    {% include "pagination.html" %}
 {% endblock %}
 
-{% include "pagination.html" %}
