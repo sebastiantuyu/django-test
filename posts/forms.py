@@ -2,7 +2,7 @@
 
 from django import forms
 from .models import Post
-
+from django.forms import Textarea, HiddenInput, FileInput
 
 class PostForm(forms.ModelForm):
 
@@ -12,3 +12,4 @@ class PostForm(forms.ModelForm):
         """
         model = Post
         fields = ('user','profile','title','photo')
+

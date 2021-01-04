@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from posts import views
-from .views import post, create_post, PostFeed, PostDetails
+from .views import post, create_post, PostFeed, PostDetails, CreatePost
 
 urlpatterns = [
     # FEED
@@ -12,6 +12,8 @@ urlpatterns = [
     path('<int:pk>/',PostDetails.as_view(),name="detail"),
 
     # CREATE NEW POST
-    path('newpost/', create_post, name="create"),
+    # FUNCTION BASED VIEW
+    # path('newpost/', create_post, name="create"),
+    path('newpost/', CreatePost.as_view(),name="create")
 
 ]

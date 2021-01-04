@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView
 from .forms import PostForm
 from .models import Post,User
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView
 # Create your views here.
 
 class PostFeed(LoginRequiredMixin, ListView):
@@ -43,7 +43,6 @@ def post(request):
     posts = Post.objects.all().order_by('-created')
     return render(request, 'posts/feed.html', {'info':posts})
 
-
 @login_required
 def create_post(request):
     """
@@ -54,9 +53,25 @@ def create_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            print("ok")
             return redirect('posts:feed')
     else:
         form = PostForm()
 
     return render(request,'posts/new_post.html',{'form':form, 'user':request.user})
+
+
+
+class CreatePost(LoginRequiredMixin,CreateView ):
+    template_name = 'posts/new_post.html'
+    form_class = PostForm
+    success_url = reverse_lazy('posts:feed')
+
+    def get_context_data(self, **kwargs):
+        """
+            Add user and profile context
+        """
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['profile'] = self.request.user.profile
+
+        return context
